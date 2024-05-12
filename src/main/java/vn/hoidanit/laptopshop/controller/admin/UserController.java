@@ -19,14 +19,12 @@ import vn.hoidanit.laptopshop.service.UserService;
 public class UserController {
 
 	private final UserService userService;
-	private final ServletContext servletContext;
 	private final UploadService uploadService;
 	private final PasswordEncoder passwordEncoder;
 
 	public UserController(UserService userService, ServletContext servletContext,
 						UploadService uploadService, PasswordEncoder passwordEncoder) {
 		this.userService = userService;
-		this.servletContext = servletContext;
 		this.uploadService = uploadService;
 		this.passwordEncoder = passwordEncoder;
 	}
