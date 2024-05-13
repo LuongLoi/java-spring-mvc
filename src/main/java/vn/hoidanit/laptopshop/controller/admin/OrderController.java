@@ -9,7 +9,7 @@ public class OrderController {
 
     @GetMapping("/admin/order")
     public String getAdminOrderPage(Model model) {
-        return "/admin/order/show_admin_order";
+        return "admin/order/show_admin_order";
     }
 
 }
