@@ -14,7 +14,6 @@ import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.OrderDetail;
 import vn.hoidanit.laptopshop.domain.Product;
-import vn.hoidanit.laptopshop.domain.Product_;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
@@ -51,13 +50,97 @@ public class ProductService {
         return this.productRepository.save(pr);
     }
 
-    public Page<Product> fetchProducts(Pageable pageable) {
-        return this.productRepository.findAll(pageable);
+    public Page<Product> fetchProducts(Pageable page) {
+        return this.productRepository.findAll(page);
     }
-    
-    public Page<Product> fetchProductsWithSpec(Pageable pageable, String name)  {
-        return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
+
+    public Page<Product> fetchProductsWithSpec(Pageable page, String name) {
+        return this.productRepository.findAll(ProductSpecs.nameLike(name), page);
     }
+
+    // case 1
+    // public Page<Product> fetchProductsWithSpec(Pageable page, double min) {
+    // return this.productRepository.findAll(ProductSpecs.minPrice(min), page);
+    // }
+
+    // case 2
+    // public Page<Product> fetchProductsWithSpec(Pageable page, double max) {
+    // return this.productRepository.findAll(ProductSpecs.maxPrice(max), page);
+    // }
+
+    // case 3
+    // public Page<Product> fetchProductsWithSpec(Pageable page, String factory) {
+    // return this.productRepository.findAll(ProductSpecs.matchFactory(factory),
+    // page);
+    // }
+
+    // case 4
+    // public Page<Product> fetchProductsWithSpec(Pageable page, List<String>
+    // factory) {
+    // return this.productRepository.findAll(ProductSpecs.matchListFactory(factory),
+    // page);
+    // }
+
+    // case 5
+    // public Page<Product> fetchProductsWithSpec(Pageable page, String price) {
+    // // eg: price 10-toi-15-trieu
+    // if (price.equals("10-toi-15-trieu")) {
+    // double min = 10000000;
+    // double max = 15000000;
+    // return this.productRepository.findAll(ProductSpecs.matchPrice(min, max),
+    // page);
+
+    // } else if (price.equals("15-toi-30-trieu")) {
+    // double min = 15000000;
+    // double max = 30000000;
+    // return this.productRepository.findAll(ProductSpecs.matchPrice(min, max),
+    // page);
+    // } else
+    // return this.productRepository.findAll(page);
+    // }
+
+    // case 6
+    // public Page<Product> fetchProductsWithSpec(Pageable page, List<String> price) {
+    //     Specification<Product> combinedSpec = (root, query, criteriaBuilder) ->
+    //         criteriaBuilder.disjunction();
+    //     int count = 0;
+    //     for (String p : price) {
+    //         double min = 0;
+    //         double max = 0;
+
+    //     // Set the appropriate min and max based on the price range string
+    //         switch (p) {
+    //             case "10-toi-15-trieu":
+    //                 min = 10000000;
+    //                 max = 15000000;
+    //                 count++;
+    //             break;
+    //             case "15-toi-20-trieu":
+    //                 min = 15000000;
+    //                 max = 20000000;
+    //                 count++;
+    //             break;
+    //             case "20-toi-30-trieu":
+    //                 min = 20000000;
+    //                 max = 30000000;
+    //                 count++;
+    //             break;
+    //         // Add more cases as needed
+    //         }
+
+    //         if (min != 0 && max != 0) {
+    //             Specification<Product> rangeSpec = ProductSpecs.matchMultiplePrice(min, max);
+    //             combinedSpec = combinedSpec.or(rangeSpec);
+    //         }
+    //     }
+
+    //     // Check if any price ranges were added (combinedSpec is empty)
+    //     if (count == 0) {
+    //         return this.productRepository.findAll(page);
+    //     }
+
+    //         return this.productRepository.findAll(combinedSpec, page);
+    // }
 
     public Optional<Product> fetchProductById(long id) {
         return this.productRepository.findById(id);
