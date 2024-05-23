@@ -57,7 +57,7 @@ public class UserController {
 
         }
         
-        Pageable pageable = PageRequest.of(page - 1, 1);
+        Pageable pageable = PageRequest.of(page - 1, 5);
         Page<User> usersPage = this.userService.getAllUser(pageable);
         List<User> users = usersPage.getContent();
 		model.addAttribute("users", users);
